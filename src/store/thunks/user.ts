@@ -51,5 +51,3 @@ export const updateUser = createAsyncThunk<void, number>(
     }
   }
 );
-
-

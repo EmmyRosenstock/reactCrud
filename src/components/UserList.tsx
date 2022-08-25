@@ -13,6 +13,7 @@ const UserList: React.FC = () => {
   };
   const handleUpdate =(user:User)=>{
     dispatch(updateUser(user.id))
+    
   }
 
   return (
