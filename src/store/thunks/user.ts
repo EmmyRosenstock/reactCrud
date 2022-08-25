@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { User } from '../../types/user';
-import { ADD_USER, REMOVE_USER, UPDATE_USER } from '../slices/users';
+import { ADD_USER, REMOVE_USER, UPDATE_USER, SET_USER_ID } from '../slices/users';
 
 const axiosInstance = axios.create({ baseURL: 'https://jsonplaceholder.typicode.com' });
 
@@ -41,13 +41,25 @@ export const deleteUser = createAsyncThunk<void, number>(
     }
   }
 );
-export const updateUser = createAsyncThunk<void, User>(
+
+export const setUserId = createAsyncThunk('USER/ID', async (id: number, store) => {
+  store.dispatch(SET_USER_ID(id))
+})
+
+export const updateUser = createAsyncThunk<void, Record<string, string>>(
   'USERS/UPDATE',
-  async (user, store) => {
-    const res = await axiosInstance.put<User>(`/users/${user.id}`);
+  async ({ address, ...data }, store) => {
+    console.log(data)
+    const res = await axiosInstance.put<User>(`/users/${data.id}`, {
+      address: {
+        city: address,
+      },
+      ...data
+    });
+    console.log('fdsfd', res)
 
     if (res.status === 200) {
-      store.dispatch(UPDATE_USER(user));
+      store.dispatch(UPDATE_USER(res.data));
     }
   }
 );
