@@ -47,8 +47,9 @@ export const updateUser = createAsyncThunk<void, number>(
     const res = await axiosInstance.put<User>(`/users/${id}`);
 
     if (res.status === 200) {
-      store.dispatch(UPDATE_USER);
+      store.dispatch(UPDATE_USER(id));
     }
   }
 );
+
 
