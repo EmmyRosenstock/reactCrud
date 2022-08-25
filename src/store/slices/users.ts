@@ -21,9 +21,9 @@ export const usersSlice = createSlice({
     ADD_USER(state, action: PayloadAction<User>) {
       state.users = [action.payload, ...state.users];
     },
-    UPDATE_USER(state, action: PayloadAction<number|string>) {
-      let user = state.users.filter((user) => user.id === action.payload)[0]
-     state.users = [...state.users.filter((user) => user.id !== action.payload), user]
+    UPDATE_USER(state, action: PayloadAction<User>) {
+      let user = state.users.filter((user) => user.id === action.payload.id)[0]
+      state.users = [...state.users.filter((user) => user.id !== action.payload.id), user]
       console.log(user.name)
     },
     REMOVE_USER(state, action: PayloadAction<number>) {

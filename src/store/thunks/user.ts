@@ -41,13 +41,13 @@ export const deleteUser = createAsyncThunk<void, number>(
     }
   }
 );
-export const updateUser = createAsyncThunk<void, number>(
+export const updateUser = createAsyncThunk<void, User>(
   'USERS/UPDATE',
-  async (id, store) => {
-    const res = await axiosInstance.put<User>(`/users/${id}`);
+  async (user, store) => {
+    const res = await axiosInstance.put<User>(`/users/${user.id}`);
 
     if (res.status === 200) {
-      store.dispatch(UPDATE_USER(id));
+      store.dispatch(UPDATE_USER(user));
     }
   }
 );
